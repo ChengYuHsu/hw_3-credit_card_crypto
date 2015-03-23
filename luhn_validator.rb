@@ -6,6 +6,10 @@ module LuhnValidator
   def validate_checksum
     nums_a = number.to_s.chars.map(&:to_i)
 
-    # TODO: use the integers in nums_a to validate its last check digit
+    # instead of checking the last digit,
+    # check if the weighted sum of the digits is a multiple of 10
+    nums_a.reverse.zip([1, 2].cycle).reduce(0){ |sum, pair|
+    	sum + pair.reduce(:*).to_s.chars.map(&:to_i).reduce(:+)
+    } % 10 == 0
   end
 end
