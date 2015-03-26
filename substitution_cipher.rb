@@ -8,10 +8,9 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      int_key = key.to_i
-      document.to_s.chars.map do |char|
-        ((char.ord + int_key) % 128).chr
-      end.join
+      document.to_s.chars.map{ |char|
+        ((char.ord + key) % 128).chr
+      }.join
     end
 
     # Decrypts String document using integer key
@@ -20,10 +19,9 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      int_key = key.to_i
-      document.to_s.chars.map do |char|
-        ((char.ord - int_key) % 128).chr
-      end.join
+      document.to_s.chars.map{ |char|
+        ((char.ord - key) % 128).chr
+      }.join
     end
   end
 
@@ -35,11 +33,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      ords = (0..127).to_a
-      mappings = ords.shuffle(random: Random.new(key.to_i))
-      document.to_s.chars.map do |char|
-        mappings[char.ord].chr
-      end.join
+      mapping = Hash[(0..127).to_a.zip((0..127).to_a.shuffle(random: Random.new(key)))]
+      document.to_s.chars.map{ |char|
+        mapping[char.ord].chr
+      }.join
     end
 
     # Decrypts String document using integer key
@@ -48,11 +45,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      ords = (0..127).to_a
-      mappings = Hash[ords.shuffle(random: Random.new(key.to_i)).zip(ords)]
-      document.to_s.chars.map do |char|
-        mappings[char.ord].chr
-      end.join
+      mapping = Hash[(0..127).to_a.shuffle(random: Random.new(key)).zip((0..127).to_a)]
+      document.to_s.chars.map{ |char|
+        mapping[char.ord].chr
+      }.join
     end
   end
 end
