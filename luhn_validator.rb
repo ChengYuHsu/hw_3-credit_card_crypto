@@ -7,8 +7,8 @@ module LuhnValidator
     nums_a = number.to_s.chars.map(&:to_i)
     # instead of checking the last digit,
     # check if the weighted sum of the digits is a multiple of 10
-    nums_a.reverse.zip([1, 2].cycle).reduce(0){ |sum, pair|
-    	sum + pair.reduce(:*).divmod(10).reduce(:+)
-    } % 10 == 0
+    nums_a.reverse.zip([1, 2].cycle).reduce(0) do |sum, pair|
+      sum + pair.reduce(:*).divmod(10).reduce(:+)
+    end % 10 == 0
   end
 end
