@@ -28,7 +28,7 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      # TODO: encrypt string using a substitution cipher
+      # TODO: encrypt string using a permutation cipher
     end
 
     # Decrypts String document using integer key
@@ -37,7 +37,7 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      # TODO: decrypt string using a substitution cipher
+      # TODO: decrypt string using a permutation cipher
     end
   end
 end
