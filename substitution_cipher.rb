@@ -1,4 +1,5 @@
 module SubstitutionCipher
+  ORD_RANGE ||= (0..127).to_a
   module Caeser
     # Encrypts document using key
     # Arguments:
@@ -6,9 +7,9 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      document.to_s.chars.map{ |char|
+      document.to_s.chars.map do |char|
         ((char.ord + key) % 128).chr
-      }.join 
+      end.join
     end
 
     # Decrypts String document using integer key
@@ -17,9 +18,9 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      document.to_s.chars.map{ |char|
+      document.to_s.chars.map do |char|
         ((char.ord - key) % 128).chr
-      }.join
+      end.join
     end
   end
 
@@ -30,10 +31,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      mapping = Hash[(0..127).to_a.zip((0..127).to_a.shuffle(random: Random.new(key)))]
-      document.to_s.chars.map{ |char|
-        mapping[char.ord].chr
-      }.join
+      mappings = Hash[ORD_RANGE.zip(ORD_RANGE.shuffle(random: Random.new(key)))]
+      document.to_s.chars.map do |char|
+        mappings[char.ord].chr
+      end.join
     end
 
     # Decrypts String document using integer key
@@ -42,10 +43,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      mapping = Hash[(0..127).to_a.shuffle(random: Random.new(key)).zip((0..127).to_a)]
-      document.to_s.chars.map{ |char|
-        mapping[char.ord].chr
-      }.join
+      mappings = Hash[ORD_RANGE.shuffle(random: Random.new(key)).zip(ORD_RANGE)]
+      document.to_s.chars.map do |char|
+        mappings[char.ord].chr
+      end.join
     end
   end
 end
