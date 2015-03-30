@@ -4,7 +4,7 @@ require 'minitest/autorun'
 
 # put your crypto module here
 cryptos = [
-  SubstitutionCipher::Caeser,
+  SubstitutionCipher::Caesar,
   SubstitutionCipher::Permutation
 ]
 
