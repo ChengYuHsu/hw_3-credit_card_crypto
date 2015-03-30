@@ -7,7 +7,7 @@ module SubstitutionCipher
     # Returns: String
     def self.encrypt(document, key)
       document.to_s.chars.map do |char|
-        ((char.ord + key) % 128).chr
+        ((char.ord + key) % ORD_RANGE.length).chr
       end.join
     end
 
@@ -18,7 +18,7 @@ module SubstitutionCipher
     # Returns: String
     def self.decrypt(document, key)
       document.to_s.chars.map do |char|
-        ((char.ord - key) % 128).chr
+        ((char.ord - key) % ORD_RANGE.length).chr
       end.join
     end
   end
