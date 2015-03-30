@@ -8,7 +8,7 @@ module SubstitutionCipher
     # Returns: String
     def self.encrypt(document, key)
       document.to_s.chars.map do |char|
-        ((char.ord + key) % ORD_RANGE.length).chr
+        ((char.ord + key) % 128).chr
       end.join
     end
 
@@ -19,7 +19,7 @@ module SubstitutionCipher
     # Returns: String
     def self.decrypt(document, key)
       document.to_s.chars.map do |char|
-        ((char.ord - key) % ORD_RANGE.length).chr
+        ((char.ord - key) % 128).chr
       end.join
     end
   end
@@ -32,7 +32,8 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      mappings = Hash[ORD_RANGE.zip(ORD_RANGE.shuffle(random: Random.new(key)))]
+      ords = (0..127).to_a
+      mappings = Hash[ords.zip(ords.shuffle(random: Random.new(key)))]
       document.to_s.chars.map do |char|
         mappings[char.ord].chr
       end.join
@@ -44,7 +45,8 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      mappings = Hash[ORD_RANGE.shuffle(random: Random.new(key)).zip(ORD_RANGE)]
+      ords = (0..127).to_a
+      mappings = Hash[ords.shuffle(random: Random.new(key)).zip(ords)]
       document.to_s.chars.map do |char|
         mappings[char.ord].chr
       end.join
