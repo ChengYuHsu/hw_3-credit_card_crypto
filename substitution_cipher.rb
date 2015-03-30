@@ -1,6 +1,5 @@
 # Common substitution ciphers
 module SubstitutionCipher
-  # Caeser cipher
   module Caesar
     # Encrypts document using key
     # Arguments:
@@ -8,9 +7,7 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      document.to_s.chars.map do |char|
-        ((char.ord + key) % 128).chr
-      end.join
+      # TODO: encrypt string using caeser cipher
     end
 
     # Decrypts String document using integer key
@@ -19,9 +16,7 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      document.to_s.chars.map do |char|
-        ((char.ord - key) % 128).chr
-      end.join
+      # TODO: decrypt string using caeser cipher
     end
   end
 
@@ -33,10 +28,7 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
-      mappings = Hash[ORD_RANGE.zip(ORD_RANGE.shuffle(random: Random.new(key)))]
-      document.to_s.chars.map do |char|
-        mappings[char.ord].chr
-      end.join
+      # TODO: encrypt string using caeser cipher
     end
 
     # Decrypts String document using integer key
@@ -45,10 +37,7 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
-      mappings = Hash[ORD_RANGE.shuffle(random: Random.new(key)).zip(ORD_RANGE)]
-      document.to_s.chars.map do |char|
-        mappings[char.ord].chr
-      end.join
+      # TODO: decrypt string using caeser cipher
     end
   end
 end
