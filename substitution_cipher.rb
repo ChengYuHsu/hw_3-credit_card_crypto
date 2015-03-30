@@ -1,5 +1,6 @@
 # Common substitution ciphers
 module SubstitutionCipher
+  # Caeser cipher
   module Caeser
     # Encrypts document using key
     # Arguments:
@@ -24,6 +25,7 @@ module SubstitutionCipher
     end
   end
 
+  # Permutation cipher
   module Permutation
     # Encrypts document using key
     # Arguments:
