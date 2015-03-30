@@ -5,7 +5,7 @@ require 'openssl'
 module AesCipher
   def self.encrypt(document, key)
     # unpack to bits
-    key_length = key.to_s.unpack('B*').join.length
+    key_length = key.unpack('B*').join.length
     # number of bits must be 128, 192, or 256
     unless [128, 192, 256].include? key_length
       fail ArgumentError, 'key length must be 128, 192 or 256 bits'
@@ -14,13 +14,13 @@ module AesCipher
     aes_cipher.key = key
     [
       aes_cipher.random_iv,
-      aes_cipher.update(document.to_s) + aes_cipher.final
+      aes_cipher.update(document) + aes_cipher.final
     ].map { |str| str.unpack('H*').join }.to_json
   end
 
   def self.decrypt(aes_crypt, key)
     # unpack to bits
-    key_length = key.to_s.unpack('B*').join.length
+    key_length = key.unpack('B*').join.length
     # number of bits must be 128, 192, or 256
     unless [128, 192, 256].include? key_length
       fail ArgumentError, 'key length must be 128, 192 or 256 bits'
