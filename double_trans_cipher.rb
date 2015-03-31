@@ -8,24 +8,36 @@ module DoubleTranspositionCipher
   end
 
   def self.encrypt(document, key)
-    doc_str = document.to_s
-    ((doc_str.length**0.5).to_i..doc_str.length).each do |num|
-      next if doc_str.length % num != 0
-      mapping = gen_mapping(doc_str.length, num, key)
-      return doc_str.chars.each_with_index.map do |_, index|
-        doc_str[mapping[index]]
-      end.join
+    int_key = key.to_i
+    doc_len = document.to_s.length
+    ((doc_len**0.5).to_i..doc_len).each do |num|
+      if doc_len % num == 0
+        rng = Random.new(key.to_i)
+        row_order = (0..doc_len/num-1).to_a.shuffle(random: rng)
+        col_order = (0..num-1).to_a.shuffle(random: rng)
+        mapping = row_order.product(col_order).map { |pair| pair.first * num + pair.last}
+        doc_chars = document.to_s.chars
+        return doc_chars.each_with_index.map do |char, index|
+          doc_chars[mapping[index]]
+        end.join
+      end
     end
   end
 
   def self.decrypt(ciphertext, key)
-    cip_str = ciphertext.to_s
-    ((cip_str.length**0.5).to_i..cip_str.length).each do |num|
-      next if cip_str.length % num != 0
-      mapping = gen_mapping(cip_str.length, num, key, true)
-      return cip_str.chars.each_with_index.map do |_, index|
-        cip_str[mapping[index]]
-      end.join
+    int_key = key.to_i
+    doc_len = ciphertext.to_s.length
+    ((doc_len**0.5).to_i..doc_len).each do |num|
+      if doc_len % num == 0
+        rng = Random.new(key.to_i)
+        row_order = (0..doc_len/num-1).to_a.shuffle(random: rng)
+        col_order = (0..num-1).to_a.shuffle(random: rng)
+        mapping = Hash[row_order.product(col_order).map { |pair| pair.first * num + pair.last}.zip((0..doc_len-1).to_a)]
+        doc_chars = ciphertext.to_s.chars
+        return doc_chars.each_with_index.map do |char, index|
+          doc_chars[mapping[index]]
+        end.join
+      end
     end
   end
 end
