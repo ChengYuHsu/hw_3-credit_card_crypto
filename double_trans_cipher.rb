@@ -1,15 +1,35 @@
 module DoubleTranspositionCipher
   def self.encrypt(document, key)
-    # TODO: FILL THIS IN!
-    ## Suggested steps for double transposition cipher
-    # 1. find number of rows/cols such that matrix is almost square
-    # 2. break plaintext into evenly sized blocks
-    # 3. sort rows in predictibly random way using key as seed
-    # 4. sort columns of each row in predictibly random way
-    # 5. return joined cyphertext
+    int_key = key.to_i
+    doc_len = document.to_s.length
+    ((doc_len**0.5).to_i..doc_len).each do |num|
+      if doc_len % num == 0
+        rng = Random.new(key.to_i)
+        row_order = (0..doc_len/num-1).to_a.shuffle(random: rng)
+        col_order = (0..num-1).to_a.shuffle(random: rng)
+        mapping = row_order.product(col_order).map { |pair| pair.first * num + pair.last}
+        doc_chars = document.to_s.chars
+        return doc_chars.each_with_index.map do |char, index|
+          doc_chars[mapping[index]]
+        end.join
+      end
+    end
   end
 
   def self.decrypt(ciphertext, key)
-    # TODO: FILL THIS IN!
+    int_key = key.to_i
+    doc_len = ciphertext.to_s.length
+    ((doc_len**0.5).to_i..doc_len).each do |num|
+      if doc_len % num == 0
+        rng = Random.new(key.to_i)
+        row_order = (0..doc_len/num-1).to_a.shuffle(random: rng)
+        col_order = (0..num-1).to_a.shuffle(random: rng)
+        mapping = Hash[row_order.product(col_order).map { |pair| pair.first * num + pair.last}.zip((0..doc_len-1).to_a)]
+        doc_chars = ciphertext.to_s.chars
+        return doc_chars.each_with_index.map do |char, index|
+          doc_chars[mapping[index]]
+        end.join
+      end
+    end
   end
 end
