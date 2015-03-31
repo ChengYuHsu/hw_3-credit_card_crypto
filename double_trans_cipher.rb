@@ -14,7 +14,7 @@ module DoubleTranspositionCipher
     ((doc_str.length**0.5).to_i..doc_str.length).each do |num|
       next if doc_str.length % num != 0
       mapping = self.gen_mapping(doc_str.length, num, key)
-      return doc_str.chars.each_with_index.map do |dummy, index|
+      return doc_str.chars.each_with_index.map do |_, index|
         doc_str[mapping[index]]
       end.join
     end
@@ -24,8 +24,8 @@ module DoubleTranspositionCipher
     cip_str = ciphertext.to_s
     ((cip_str.length**0.5).to_i..cip_str.length).each do |num|
       next if cip_str.length % num != 0
-      mapping = self.gen_mapping(cip_str.length, num, key, reversed = true)
-      return cip_str.chars.each_with_index.map do |dummy, index|
+      mapping = self.gen_mapping(cip_str.length, num, key, true)
+      return cip_str.chars.each_with_index.map do |_, index|
         cip_str[mapping[index]]
       end.join
     end
