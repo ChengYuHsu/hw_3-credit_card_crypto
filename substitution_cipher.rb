@@ -35,7 +35,7 @@ module SubstitutionCipher
     # Returns: String
     def self.encrypt(document, key)
       ords = (0..127).to_a
-      mappings = Hash[ords.zip(ords.shuffle(random: Random.new(key.to_i)))]
+      mappings = ords.shuffle(random: Random.new(key.to_i))
       document.to_s.chars.map do |char|
         mappings[char.ord].chr
       end.join
