@@ -1,6 +1,7 @@
 require_relative './luhn_validator.rb'
 require 'json'
 
+# Credit card entity
 class CreditCard
   # Mixin the validator
   include LuhnValidator
@@ -22,17 +23,19 @@ class CreditCard
       expiration_date: @expiration_date,
       owner: @owner,
       credit_network: @credit_network
-     }.to_json
+    }.to_json
   end
 
   # returns all card information as single string
   def to_s
-    self.to_json
+    to_json
   end
 
   # return a new CreditCard object given a serialized (JSON) representation
   def self.from_s(card_s)
-    # TODO: deserializing a CreditCard object
+    card = JSON.parse(card_s.to_s)
+    CreditCard.new(card['number'], card['expiration_date'],
+                   card['owner'], card['credit_network'])
   end
 
   # return a hash of the serialized credit card object
