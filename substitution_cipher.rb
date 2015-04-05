@@ -1,7 +1,7 @@
 # Common substitution ciphers
 module SubstitutionCipher
   # Caeser cipher
-  module Caeser
+  module Caesar
     # Encrypts document using key
     # Arguments:
     #   document: String
