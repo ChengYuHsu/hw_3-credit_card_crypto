@@ -10,25 +10,25 @@ describe 'Test hashing requirements' do
 
   describe 'Test regular hashing' do
     it 'should find the same hash for identical cards' do
-      cc1.hash.must_equal cc2.hash
+      @cc1.hash.must_equal @cc2.hash
     end
 
     it 'should produce different hashes for different information' do
-      cc1.hash.wont_equal cc3.hash
+      @cc1.hash.wont_equal @cc3.hash
     end
   end
 
   describe 'Test cryptographic hashing' do
     it 'should find the same hash for identical cards' do
-      cc1.hash.must_equal cc2.hash
+      @cc1.hash.must_equal @cc2.hash
     end
 
     it 'should produce different hashes for different information' do
-      cc1.hash.wont_equal cc3.hash
+      @cc1.hash.wont_equal @cc3.hash
     end
 
     it 'should not produce the same regular vs. cryptographic hash' do
-      cc1.hash.wont_equal cc1.hash_secure
+      @cc1.hash.wont_equal @cc1.hash_secure
     end
   end
 end
