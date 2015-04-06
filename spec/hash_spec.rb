@@ -3,9 +3,12 @@ require 'minitest/autorun'
 
 describe 'Test hashing requirements' do
   before do
-    @cc1 = CreditCard.new('4916603231464963', 'Mar-30-2020', 'Soumya Ray', 'Visa')
-    @cc2 = CreditCard.new('4916603231464963', 'Mar-30-2020', 'Soumya Ray', 'Visa')
-    @cc3 = CreditCard.new('5423661657234057', 'Feb-30-2020', 'Soumya Ray', 'Mastercard')
+    @cc1 = CreditCard.new('4916603231464963', 'Mar-30-2020',
+                          'Soumya Ray', 'Visa')
+    @cc2 = CreditCard.new('4916603231464963', 'Mar-30-2020',
+                          'Soumya Ray', 'Visa')
+    @cc3 = CreditCard.new('5423661657234057', 'Feb-30-2020',
+                          'Soumya Ray', 'Mastercard')
   end
 
   describe 'Test regular hashing' do
