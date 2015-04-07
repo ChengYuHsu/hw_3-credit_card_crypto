@@ -1,11 +1,13 @@
 require_relative '../credit_card'
 require_relative '../substitution_cipher'
+require_relative '../double_trans_cipher'
 require 'minitest/autorun'
 
 # put your crypto module here
 cryptos = [
   SubstitutionCipher::Caesar,
-  SubstitutionCipher::Permutation
+  SubstitutionCipher::Permutation,
+  DoubleTranspositionCipher
 ]
 
 describe 'Test card info encryption' do
