@@ -28,7 +28,7 @@ cryptos = [
 describe 'Test card info encryption' do
   # before each testing
   before do
-    @cc = CreditCard.new('4916603231464963', 'Mar-30-2020', 'Soumya Ray', 'Visa')
+    @cc = CreditCard.new('4916603231464963', 'Mar-30-2020', 'S. Ray', 'Visa')
   end
   # test all the crypto methods
   cryptos.each do |crypto|
