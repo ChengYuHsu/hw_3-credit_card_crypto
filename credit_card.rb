@@ -41,12 +41,7 @@ class CreditCard
 
   # return a hash of the serialized credit card object
   def hash
-    [
-      (@number.hash << 24),
-      (@expiration_date.hash << 16),
-      (@owner.hash << 8),
-      @credit_network.hash
-    ].reduce(:+)
+    to_s.hash
   end
 
   # return a cryptographically secure hash
