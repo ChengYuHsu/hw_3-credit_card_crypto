@@ -10,7 +10,7 @@ cards.each do |network, states|
       it 'tests all #{state} numbers' do
         numbers.each do |number|
           card = CreditCard.new(number, nil, nil, nil)
-          card.validate_checksum.must_equal (state == 'valid')
+          card.validate_checksum.must_equal(state == 'valid')
         end
       end
     end
