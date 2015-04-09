@@ -1,5 +1,6 @@
 # Common substitution ciphers
 module SubstitutionCipher
+  # Caesar cipher
   module Caesar
     # Encrypts document using key
     # Arguments:
